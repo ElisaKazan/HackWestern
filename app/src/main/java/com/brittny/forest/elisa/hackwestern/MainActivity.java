@@ -16,5 +16,5 @@ public class MainActivity extends AppCompatActivity
         Log.i("TEST","Initial Commit");
     }
 
-    
+
 }
