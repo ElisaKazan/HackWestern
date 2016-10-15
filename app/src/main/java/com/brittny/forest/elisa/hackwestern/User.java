@@ -23,52 +23,46 @@ public class User
 
     public void generateCodes ()
     {
-        final int charMax = 50;
+        final int charMax = 20;
         String content = createContentString();
         String[] arrStrings = new String[content.length() / charMax + 1];
 
         for (int i = 0; i < content.length() / charMax + 1; i++) {
             String currContent = "";
             if (i == 0) {
-                currContent = currContent + "0" + content.length() / charMax + 1;
+                currContent = currContent + "0" + (content.length() / charMax + 1);
 
                 if (name != null) {
                     currContent = currContent + "1";
-                }
-                else {
+                } else {
                     currContent = currContent + "0";
                 }
 
                 if (email != null) {
                     currContent = currContent + "1";
-                }
-                else {
+                } else {
                     currContent = currContent + "0";
                 }
 
                 if (twitter != null) {
                     currContent = currContent + "1";
-                }
-                else {
+                } else {
                     currContent = currContent + "0";
                 }
 
                 if (linkedin != null) {
                     currContent = currContent + "1";
-                }
-                else {
+                } else {
                     currContent = currContent + "0";
                 }
 
                 if (pic != null) {
                     currContent = currContent + "1";
-                }
-                else {
+                } else {
                     currContent = currContent + "0";
                 }
 
-            }
-            else {
+            } else {
                 currContent = currContent + "" + i;
             }
 
@@ -78,6 +72,7 @@ public class User
                 currContent = currContent + "" + content.substring(i * charMax);
 
             arrStrings[i] = currContent;
+            System.out.println(currContent);
         }
         codes = arrStrings;
     }

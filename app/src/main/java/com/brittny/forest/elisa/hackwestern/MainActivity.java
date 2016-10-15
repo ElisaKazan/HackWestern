@@ -20,10 +20,9 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
 
-    private Button button;
+    private Button button, QrScanner;
     private EditText nameText;
     private EditText emailText;
     private EditText twitterText;
@@ -33,8 +32,7 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -46,21 +44,19 @@ public class MainActivity extends AppCompatActivity
         nameText = (EditText) this.findViewById(R.id.nameText);
 
         button = (Button) this.findViewById(R.id.generateBtn);
+        QrScanner = (Button) this.findViewById(R.id.ScanQR);
 
-        button.setOnClickListener(new View.OnClickListener()
-        {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                
+
                 user = new User();
                 user.generateCodes();
 
                 String text2qr = user.codes[0];
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-                try
-                {
+                try {
                     BitMatrix bitMatrix = multiFormatWriter.encode(text2qr, BarcodeFormat.QR_CODE, 200, 200);
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
@@ -69,10 +65,20 @@ public class MainActivity extends AppCompatActivity
                     intent.putExtra("pic", bitmap);
                     context.startActivity(intent);
 
-                } catch (WriterException e)
-                {
+                } catch (WriterException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        QrScanner.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+
+                Intent intent = new Intent(context, QRReader.class);
+                context.startActivity(intent);
             }
         });
     }

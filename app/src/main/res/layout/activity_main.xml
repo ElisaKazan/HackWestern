@@ -47,4 +47,12 @@
         android:id="@+id/twitterText"
         android:layout_below="@+id/emailText" android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
+
+    <Button
+        android:text="Scan QR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/generateBtn"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/ScanQR" />
 </RelativeLayout>
