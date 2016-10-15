@@ -29,17 +29,14 @@ public class MainActivity extends AppCompatActivity
     private EditText twitterText;
     private EditText linkedinText;
 
+    User user;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Log.i("TEST","Initial Commit");
-
-        // User's info
-        //User user = new User();
-
 
         final Context context = this;
 
@@ -56,8 +53,11 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
 
+                
+                user = new User();
+                user.generateCodes();
 
-                String text2qr = "TEST";
+                String text2qr = user.codes[0];
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 try
                 {
