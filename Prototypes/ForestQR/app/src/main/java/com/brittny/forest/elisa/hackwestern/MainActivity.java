@@ -1,20 +1,112 @@
 package com.brittny.forest.elisa.hackwestern;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity
-{
+import com.google.zxing.Result;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
+public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+    static final int CAMERA_REQUEST = 1;
+
+    private ZXingScannerView mScannerView;
+    private int numPackets;
+    private List<String> packetList = new ArrayList<String>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.i("TEST","Initial Commit");
+        System.out.println("here");
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            System.out.println("Empty");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST);
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            System.out.println("Still empty");
+        }
     }
 
-    
+    public void QrScanner(View view) {
+        mScannerView = new ZXingScannerView(this);   // Programmatically initialize the scanner view
+        setContentView(mScannerView);
+        mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+        System.out.println(Camera.getNumberOfCameras());
+        //mScannerView.start
+        mScannerView.startCamera();         // Start camera
+        System.out.println(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mScannerView.stopCamera();   // Stop camera on pause
+    }
+
+    @Override
+    public void handleResult(Result rawResult) {
+        String packet = rawResult.getText();
+        int packetNum = Integer.parseInt(packet.substring(0,1));
+        if (packetNum == 0) {
+            if (!packetList.contains(packetNum)) {
+                numPackets = Integer.parseInt(packet.substring(1,2));
+                packetList.add(packet);
+            }
+        }
+        else {
+            if (!packetList.contains(packetNum)) {
+                packetList.add(packet);
+            }
+        }
+        System.out.println(packet);
+        mScannerView.resumeCameraPreview(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_REQUEST: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    System.out.println("Granted");
+
+                } else {
+
+                    System.out.println("Not Granted");
+                }
+                return;
+            }
+        }
+    }
+
+    /*private int findFrontFacingCamera() {
+
+        // Search for the front facing camera
+        int numberOfCameras = Camera.getNumberOfCameras();
+        for (int i = 0; i < numberOfCameras; i++) {
+            CameraInfo info = new CameraInfo();
+            Camera.getCameraInfo(i, info);
+            if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
+                cameraId = i;
+                cameraFront = true;
+                break;
+            }
+        }
+        return cameraId;
+    }*/
 }
