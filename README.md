@@ -1,4 +1,4 @@
 # HackWestern
-Created by Elisa, Forest and Brittny during Hack Western 2016
+Created by Elisa, Forest, Brittny and Andre during Hack Western 2016
 
 :)
