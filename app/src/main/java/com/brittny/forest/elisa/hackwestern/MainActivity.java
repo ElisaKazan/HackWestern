@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         // User's info
         //User user = new User();
-        
+
 
         final Context context = this;
 
