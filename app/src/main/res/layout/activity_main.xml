@@ -14,5 +14,37 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:text="Generate a QR Code" android:id="@+id/welcomeText"/>
+    <Button
+        android:text="Generate Code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" android:id="@+id/generateBtn"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="10"
+        android:id="@+id/nameText"
+        android:layout_below="@+id/textView" android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" android:layout_marginTop="15dp"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:text="Email"
+        android:ems="10"
+        android:id="@+id/emailText"
+        android:layout_below="@+id/nameText" android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Twitter"
+        android:ems="10"
+        android:id="@+id/twitterText"
+        android:layout_below="@+id/emailText" android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 </RelativeLayout>
