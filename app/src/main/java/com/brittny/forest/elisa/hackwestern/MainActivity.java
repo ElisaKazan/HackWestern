@@ -3,6 +3,7 @@ package com.brittny.forest.elisa.hackwestern;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -52,22 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 user = new User();
-                user.generateCodes();
+                String[] codesQR = user.generateCodes();
 
-                String text2qr = user.codes[0];
-                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-                try {
-                    BitMatrix bitMatrix = multiFormatWriter.encode(text2qr, BarcodeFormat.QR_CODE, 200, 200);
-                    BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                    Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-
-                    Intent intent = new Intent(context, QRActivity.class);
-                    intent.putExtra("pic", bitmap);
-                    context.startActivity(intent);
-
-                } catch (WriterException e) {
-                    e.printStackTrace();
-                }
+                Intent intent = new Intent(context, QRActivity.class);
+                intent.putExtra("pic", codesQR);
+                context.startActivity(intent);
             }
         });
 

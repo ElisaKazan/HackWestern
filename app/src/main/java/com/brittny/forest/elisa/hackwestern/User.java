@@ -21,7 +21,7 @@ public class User
         pic = "Incomplete";
     }
 
-    public void generateCodes ()
+    public String[] generateCodes ()
     {
         final int charMax = 20;
         String content = createContentString();
@@ -74,7 +74,7 @@ public class User
             arrStrings[i] = currContent;
             System.out.println(currContent);
         }
-        codes = arrStrings;
+        return arrStrings;
     }
 
     public String createContentString()
