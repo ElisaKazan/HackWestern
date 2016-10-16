@@ -101,8 +101,8 @@ public class QRReader extends AppCompatActivity implements ZXingScannerView.Resu
         for (int i = 0; i < packetStrings.size(); i++) {
             for (int j = 0; j < packetStrings.size(); j++) {
                 if (Integer.parseInt(packetStrings.get(j).substring(0, 1)) == i) {
-                    if (i == 1) {
-                        inOrder = inOrder + "" + packetStrings.get(j).substring(2);
+                    if (i == 0) {
+                        inOrder = inOrder + "" + packetStrings.get(j).substring(7);
                     }
                     else {
                         inOrder = inOrder + "" + packetStrings.get(j).substring(1);
@@ -116,19 +116,18 @@ public class QRReader extends AppCompatActivity implements ZXingScannerView.Resu
         User parsedUser = new User();
 
         parsedUser.setName(userData[0]);
-        if (parsedUser.name == "") {
+        if (parsedUser.name.equals("")) {
             parsedUser.name = "Name Unavailable";
         }
         parsedUser.setEmail(userData[1]);
-        if (parsedUser.email == "") {
+        if (parsedUser.email.equals("")) {
             parsedUser.email = "Email Unavailable";
         }
         parsedUser.setTwitter(userData[2]);
-        if (parsedUser.twitter == "") {
+        if (parsedUser.twitter.equals("")) {
             parsedUser.twitter = "Twitter Unavailable";
         }
-
-        System.out.print("Name: " + parsedUser.name + "/n" + "Email: " + parsedUser.email + "/n" + "Twitter" + parsedUser.twitter + "/n");
+        System.out.println("Name: " + parsedUser.name + "/n" + "Email: " + parsedUser.email + "/n" + "Twitter" + parsedUser.twitter);
 
     }
 }

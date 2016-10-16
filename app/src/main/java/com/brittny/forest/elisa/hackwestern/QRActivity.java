@@ -46,8 +46,6 @@ public class QRActivity extends AppCompatActivity {
     }
 
     public Bitmap[] makeQRBitMap(String[] codesQR) {
-        System.out.println("Madddada");
-        //String text2qr = user.codes[0];
         Bitmap[] codeQRBitMap = new Bitmap[codesQR.length];
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         Display mDisplay = this.getWindowManager().getDefaultDisplay();
@@ -60,17 +58,6 @@ public class QRActivity extends AppCompatActivity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
-
-       // AnimatedGifEncoder gif = new AnimatedGifEncoder();
-        //OutputStream out = new OutputStream();
-
-        //gif.setDelay(500);
-        //gif.setRepeat(0);
-        for (int i = 0; i < codeQRBitMap.length; i++) {
-            //gif.addFrame(codeQRBitMap[i]);
-        }
-        //gif.start(out);
-        //gif.finish();
         return codeQRBitMap;
     }
 }
