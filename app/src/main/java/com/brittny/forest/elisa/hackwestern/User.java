@@ -1,42 +1,113 @@
 package com.brittny.forest.elisa.hackwestern;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.FileOutputStream;
+
 /**
  * Created by elisakazan on 2016-10-15.
  */
 public class User
 {
-    String name;
-    String email;
-    String twitter;
-    String linkedin;
-    String pic;
-    String[] codes;
+    private String name;
+    private String email;
+    private String twitter;
+    private String linkedin;
+    private String pic;
+    private String[] codes;
+    private String[] connections;
+    private JSONObject jsonObj;
 
-    public User()
+    public User(){
+        this.name = "Incomplete";
+        this.email = "Incomplete";
+        this.twitter = "Incomplete";
+        this.linkedin = "Incomplete";
+        this.pic = "Incomplete";
+    }
+
+    public User(String name, String email)
     {
-        name = "Elisa";
-        email = "elisa.kazan@gmail.com";
-        twitter = "@elisakazan";
+        this.name = name;
+        this.email = email;
+        twitter = "Incomplete";
         linkedin = "Incomplete";
         pic = "Incomplete";
     }
 
-    public void setName(String n)
+    public User(String name, String email, String twitter, String linkedin, String pic)
     {
-        name = n;
+        this.name = name;
+        this.email = email;
+        this.twitter = twitter;
+        this.linkedin = linkedin;
+        this.pic = pic;
     }
 
-    public void setEmail(String e)
-    {
-        email = e;
+    public void saveData(){
+
     }
 
-    public void setTwitter(String t)
-    {
-        twitter = t;
+    public String getDataString() throws JSONException {
+        JSONObject userJSON = new JSONObject();
+        userJSON.put("name", this.name);
+        userJSON.put("email", this.email);
+        userJSON.put("twitter", this.twitter);
+        userJSON.put("linkedin", this.linkedin);
+        userJSON.put("pic", this.pic);
+        userJSON.put("connections", this.connections);
+
+        String userJSONString = userJSON.toString();
+        return userJSONString;
+
+        /*public static final String MyPrefs = "MyPrefs";
+        SharedPreferences sp = getSharedPreferences(MyPrefs, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("userData", userJSONString);
+        editor.commit();*/
+
+            /*
+                //PROCESS FOR ADDING STUF TO JSON
+                //open file and put contents in buff
+                String FILENAME = "user_file.json";
+
+                InputStream is = getAssets().open(FILENAME);
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+
+                //create string from buff and create obj from string
+                String jsonString = new String(buffer, "UTF-8");
+                JSONObject userJSONObj = new JSONObject(jsonString);
+
+                //use userJSONObj.put("key", "val") to create or overwrite a key val pair
+
+                jsonString = userJSONObj.toString();
+                System.out.println(jsonString);
+
+                //Write to json file
+                FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE); //overwrite
+                fos.write(jsonString.getBytes());
+                fos.close();
+            */
+
     }
 
-    public String[] generateCodes ()
+    public void addConnection(String data){
+        //TODO: Call this when camera returns data
+        //Save to jsonobj "connections" array?
+    }
+
+    public void getConnections(){
+
+    }
+
+    public void generateCodes ()
     {
         final int charMax = 20;
         String content = createContentString();
@@ -89,7 +160,7 @@ public class User
             arrStrings[i] = currContent;
             System.out.println(currContent);
         }
-        return arrStrings;
+        codes = arrStrings;
     }
 
     public String createContentString()
@@ -97,4 +168,28 @@ public class User
         String content = name + "," + email + "," + twitter + "," + linkedin + "," + pic;
         return content;
     }
+
+    public String getName(){
+        return name;
+    };
+
+    public String getEmail(){
+        return email;
+    };
+
+    public String getTwitter(){
+        return twitter;
+    };
+
+    public String getLinkedIn(){
+        return linkedin;
+    };
+
+    public String getPic(){
+        return pic;
+    };
+
+    public String[] getCodes(){
+        return codes;
+    };
 }
