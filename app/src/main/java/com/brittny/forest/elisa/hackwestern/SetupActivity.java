@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 
 public class SetupActivity extends AppCompatActivity {
-    private Button setupButton, QrScanner;
+    private Button setupButton, QrScanner, contacts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class SetupActivity extends AppCompatActivity {
         final Context context = this;
         setupButton = (Button) this.findViewById(R.id.setupBtn);
         QrScanner = (Button) this.findViewById(R.id.ScanQR);
+        contacts = (Button) this.findViewById(R.id.contacts);
 
         setupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +52,15 @@ public class SetupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 Intent intent = new Intent(context, QRReader.class);
+                context.startActivity(intent);
+            }
+        });
+        contacts.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+                Intent intent = new Intent(context, ContactPageActivity.class);
                 context.startActivity(intent);
             }
         });

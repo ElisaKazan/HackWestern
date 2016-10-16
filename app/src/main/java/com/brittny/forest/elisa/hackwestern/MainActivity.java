@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             //If not first run then show camera activity
-            Intent intent = new Intent(context, QRReader.class);
+            Intent intent = new Intent(context, ContactPageActivity.class);
             context.startActivity(intent);
         }
     }
