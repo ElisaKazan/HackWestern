@@ -111,24 +111,9 @@ public class QRReader extends AppCompatActivity implements ZXingScannerView.Resu
             }
         }
         System.out.println(inOrder);
+        //User parsedUser = new User;
 
-        String[] userData = inOrder.split(",");
-        User parsedUser = new User();
-
-        parsedUser.setName(userData[0]);
-        if (parsedUser.name == "") {
-            parsedUser.name = "Name Unavailable";
-        }
-        parsedUser.setEmail(userData[1]);
-        if (parsedUser.email == "") {
-            parsedUser.email = "Email Unavailable";
-        }
-        parsedUser.setTwitter(userData[2]);
-        if (parsedUser.twitter == "") {
-            parsedUser.twitter = "Twitter Unavailable";
-        }
-
-        System.out.print("Name: " + parsedUser.name + "/n" + "Email: " + parsedUser.email + "/n" + "Twitter" + parsedUser.twitter + "/n");
-
+        //if
+        //parsedUser.name
     }
 }

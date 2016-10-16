@@ -1,0 +1,25 @@
+{
+  "firstRun" : true,
+  "name" : "",
+  "email" : "",
+  "twitter" : "",
+  "linkedin" : "",
+  "pic" : "",
+  "connections" : [
+    {
+      "name" : "Sally Smith",
+      "email" : "sally.smith@gmail.com",
+      "twitter" : "@sally"
+    },
+    {
+      "name" : "John Doe",
+      "email" : "john.d@gmail.com",
+      "twitter" : "@jd"
+    },
+    {
+      "name" : "Billy Stevens",
+      "email" : "b.stevens@gmail.com",
+      "twitter" : "@billyyy"
+    }
+  ]
+}
