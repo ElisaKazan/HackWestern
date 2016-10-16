@@ -3,6 +3,7 @@ package com.brittny.forest.elisa.hackwestern;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,10 +21,9 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
 
-    private Button button;
+    private Button button, QrScanner;
     private EditText nameText;
     private EditText emailText;
     private EditText twitterText;
@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -46,33 +45,30 @@ public class MainActivity extends AppCompatActivity
         nameText = (EditText) this.findViewById(R.id.nameText);
 
         button = (Button) this.findViewById(R.id.generateBtn);
+        QrScanner = (Button) this.findViewById(R.id.ScanQR);
 
-        button.setOnClickListener(new View.OnClickListener()
-        {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                
+
                 user = new User();
-                user.generateCodes();
+                String[] codesQR = user.generateCodes();
 
-                String text2qr = user.codes[0];
+                Intent intent = new Intent(context, QRActivity.class);
+                intent.putExtra("pic", codesQR);
+                context.startActivity(intent);
+            }
+        });
+
+        QrScanner.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-                try
-                {
-                    BitMatrix bitMatrix = multiFormatWriter.encode(text2qr, BarcodeFormat.QR_CODE, 200, 200);
-                    BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                    Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
 
-                    Intent intent = new Intent(context, QRActivity.class);
-                    intent.putExtra("pic", bitmap);
-                    context.startActivity(intent);
-
-                } catch (WriterException e)
-                {
-                    e.printStackTrace();
-                }
+                Intent intent = new Intent(context, QRReader.class);
+                context.startActivity(intent);
             }
         });
     }

@@ -24,7 +24,7 @@ public class QRReader extends AppCompatActivity implements ZXingScannerView.Resu
     static final int CAMERA_REQUEST = 1;
 
     private ZXingScannerView mScannerView;
-    private int numPackets;
+    private int numPackets = -1;
     private List<String> packetList = new ArrayList<String>();
 
     @Override
@@ -32,15 +32,10 @@ public class QRReader extends AppCompatActivity implements ZXingScannerView.Resu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("here");
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            System.out.println("Empty");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST);
         }
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            System.out.println("Still empty");
-        }
+        QrScanner(mScannerView);
     }
 
     public void QrScanner(View view) {
@@ -64,17 +59,23 @@ public class QRReader extends AppCompatActivity implements ZXingScannerView.Resu
         String packet = rawResult.getText();
         int packetNum = Integer.parseInt(packet.substring(0, 1));
         if (packetNum == 0) {
-            if (!packetList.contains(packetNum)) {
+            if (!packetList.contains(packet)) {
                 numPackets = Integer.parseInt(packet.substring(1, 2));
                 packetList.add(packet);
             }
         } else {
-            if (!packetList.contains(packetNum)) {
+            if (!packetList.contains(packet)) {
                 packetList.add(packet);
             }
         }
         System.out.println(packet);
-        mScannerView.resumeCameraPreview(this);
+
+        if (numPackets == -1 || numPackets > packetList.size()) {
+            mScannerView.resumeCameraPreview(this);
+        }
+        else {
+            parsePackets(packetList);
+        }
     }
 
     @Override
@@ -93,5 +94,26 @@ public class QRReader extends AppCompatActivity implements ZXingScannerView.Resu
                 return;
             }
         }
+    }
+
+    public void parsePackets(List<String> packetStrings) {
+        String inOrder = "";
+        for (int i = 0; i < packetStrings.size(); i++) {
+            for (int j = 0; j < packetStrings.size(); j++) {
+                if (Integer.parseInt(packetStrings.get(j).substring(0, 1)) == i) {
+                    if (i == 1) {
+                        inOrder = inOrder + "" + packetStrings.get(j).substring(2);
+                    }
+                    else {
+                        inOrder = inOrder + "" + packetStrings.get(j).substring(1);
+                    }
+                }
+            }
+        }
+        System.out.println(inOrder);
+        //User parsedUser = new User;
+
+        //if
+        //parsedUser.name
     }
 }
