@@ -51,8 +51,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 user = new User();
+                user.setName(nameText.getText().toString());
+                user.setEmail(emailText.getText().toString());
+                user.setTwitter(twitterText.getText().toString());
+
                 String[] codesQR = user.generateCodes();
 
                 Intent intent = new Intent(context, QRActivity.class);

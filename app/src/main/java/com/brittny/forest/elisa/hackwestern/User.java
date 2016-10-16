@@ -21,6 +21,21 @@ public class User
         pic = "Incomplete";
     }
 
+    public void setName(String n)
+    {
+        name = n;
+    }
+
+    public void setEmail(String e)
+    {
+        email = e;
+    }
+
+    public void setTwitter(String t)
+    {
+        twitter = t;
+    }
+
     public String[] generateCodes ()
     {
         final int charMax = 20;
